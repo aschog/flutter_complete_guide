@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import '../helpers/location_helper.dart';
+import '../../helpers/location_helper.dart';
 import '../screens/map_screen.dart';
 
 class LocationInput extends StatefulWidget {
@@ -42,8 +42,8 @@ class _LocationInputState extends State<LocationInput> {
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (ctx) => MapScreen(
-              isSelecting: true,
-            ),
+          isSelecting: true,
+        ),
       ),
     );
     if (selectedLocation == null) {
