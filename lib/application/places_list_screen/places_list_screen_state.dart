@@ -10,7 +10,7 @@ class PlacesListScreenLoading extends PlacesListScreenState {}
 class PlacesListScreenLoaded extends PlacesListScreenState {
   //@override
   List<Object> get props => [places];
-  final List<Place> places;
+  final List<PlaceEntity> places;
   PlacesListScreenLoaded({@required this.places});
 }
 

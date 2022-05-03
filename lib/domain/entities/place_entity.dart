@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-import 'PlaceLocation.dart';
+import 'place_location_entity.dart';
 
-class Place {
+class PlaceEntity {
   final String id;
   final String title;
-  final PlaceLocation location;
+  final PlaceLocationEntity location;
   final File image;
 
-  Place({
+  PlaceEntity({
     @required this.id,
     @required this.title,
     @required this.location,

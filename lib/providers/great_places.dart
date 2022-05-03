@@ -2,35 +2,35 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-import '../domain/entities/PlaceLocation.dart';
-import '../domain/entities/place.dart';
-import '../helpers/db_helper.dart';
-import '../helpers/location_helper.dart';
+import '../domain/entities/place_location_entity.dart';
+import '../domain/entities/place_entity.dart';
+import '../infrastructure/helpers/db_helper.dart';
+import '../infrastructure/helpers/location_helper.dart';
 
 class GreatPlaces with ChangeNotifier {
-  List<Place> _items = [];
+  List<PlaceEntity> _items = [];
 
-  List<Place> get items {
+  List<PlaceEntity> get items {
     return [..._items];
   }
 
-  Place findById(String id) {
+  PlaceEntity findById(String id) {
     return _items.firstWhere((place) => place.id == id);
   }
 
   Future<void> addPlace(
     String pickedTitle,
     File pickedImage,
-    PlaceLocation pickedLocation,
+    PlaceLocationEntity pickedLocation,
   ) async {
     final address = await LocationHelper.getPlaceAddress(
         pickedLocation.latitude, pickedLocation.longitude);
-    final updatedLocation = PlaceLocation(
+    final updatedLocation = PlaceLocationEntity(
       latitude: pickedLocation.latitude,
       longitude: pickedLocation.longitude,
       address: address,
     );
-    final newPlace = Place(
+    final newPlace = PlaceEntity(
       id: DateTime.now().toString(),
       image: pickedImage,
       title: pickedTitle,
@@ -52,11 +52,11 @@ class GreatPlaces with ChangeNotifier {
     final dataList = await DBHelper.getData('user_places');
     _items = dataList
         .map(
-          (item) => Place(
+          (item) => PlaceEntity(
             id: item['id'],
             title: item['title'],
             image: File(item['image']),
-            location: PlaceLocation(
+            location: PlaceLocationEntity(
               latitude: item['loc_lat'],
               longitude: item['loc_lng'],
               address: item['address'],

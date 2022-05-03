@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../domain/entities/PlaceLocation.dart';
-import '../../domain/entities/place.dart';
+import '../../domain/entities/place_location_entity.dart';
+import '../../domain/entities/place_entity.dart';
 
 class MapScreen extends StatefulWidget {
-  final PlaceLocation initialLocation;
+  final PlaceLocationEntity initialLocation;
   final bool isSelecting;
 
   MapScreen({
     this.initialLocation =
-        const PlaceLocation(latitude: 37.422, longitude: -122.084),
+        const PlaceLocationEntity(latitude: 37.422, longitude: -122.084),
     this.isSelecting = false,
   });
 

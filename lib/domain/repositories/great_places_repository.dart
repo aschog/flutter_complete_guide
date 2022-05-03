@@ -1,5 +1,8 @@
-import '../entities/place.dart';
+import 'package:dartz/dartz.dart';
 
-abstract class AdvicerRepository {
-  Future<List<Place>> getPlacesListFromDB();
+import '../entities/place_entity.dart';
+import '../failures/failures.dart';
+
+abstract class GreatPlacesRepository {
+  Future<Either<Failure, List<PlaceEntity>>> getPlacesListFromDB();
 }

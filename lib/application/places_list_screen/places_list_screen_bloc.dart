@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_complete_guide/domain/failures/failures.dart';
 import 'package:meta/meta.dart';
 
-import '../../domain/entities/place.dart';
+import '../../domain/entities/place_entity.dart';
 import '../../domain/usecases/great_places_usecases.dart';
 
 part 'places_list_screen_event.dart';
@@ -18,7 +18,7 @@ class PlacesListScreenBloc
   PlacesListScreenBloc() : super(PlacesListScreenInitial()) {
     on<PlacesListScreenEvent>((event, emit) async {
       emit(PlacesListScreenLoading());
-      Either<Failure, List<Place>> placesOrFailure =
+      Either<Failure, List<PlaceEntity>> placesOrFailure =
           await usecases.fetchAndSetPlacesUsecase();
       placesOrFailure.fold(
         (failure) =>
