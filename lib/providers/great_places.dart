@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-import '../models/place.dart';
+import '../domain/entities/PlaceLocation.dart';
+import '../domain/entities/place.dart';
 import '../helpers/db_helper.dart';
 import '../helpers/location_helper.dart';
 
@@ -52,15 +53,15 @@ class GreatPlaces with ChangeNotifier {
     _items = dataList
         .map(
           (item) => Place(
-                id: item['id'],
-                title: item['title'],
-                image: File(item['image']),
-                location: PlaceLocation(
-                  latitude: item['loc_lat'],
-                  longitude: item['loc_lng'],
-                  address: item['address'],
-                ),
-              ),
+            id: item['id'],
+            title: item['title'],
+            image: File(item['image']),
+            location: PlaceLocation(
+              latitude: item['loc_lat'],
+              longitude: item['loc_lng'],
+              address: item['address'],
+            ),
+          ),
         )
         .toList();
     notifyListeners();

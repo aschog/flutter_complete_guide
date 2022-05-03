@@ -7,6 +7,17 @@ class PlacesListScreenInitial extends PlacesListScreenState {}
 
 class PlacesListScreenLoading extends PlacesListScreenState {}
 
-class PlacesListScreenLoaded extends PlacesListScreenState {}
+class PlacesListScreenLoaded extends PlacesListScreenState {
+  //@override
+  List<Object> get props => [places];
+  final List<Place> places;
+  PlacesListScreenLoaded({@required this.places});
+}
 
-class PlacesListScreenError extends PlacesListScreenState {}
+class PlacesListScreenError extends PlacesListScreenState {
+  //@override
+  List<Object> get props => [message];
+  final String message;
+
+  PlacesListScreenError({@required this.message});
+}

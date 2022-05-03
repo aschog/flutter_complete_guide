@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../application/places_list_screen/places_list_screen_bloc.dart';
+import '../widgets/error_message.dart';
 import './add_place_screen.dart';
 import '../../providers/great_places.dart';
 import './place_detail_screen.dart';
@@ -44,49 +45,32 @@ class PlacesListScreen extends StatelessWidget {
                           //color: themeData.colorScheme.secondary,
                           );
                     } else if (placesListState is PlacesListScreenLoaded) {
-                      return FutureBuilder(
-                        future: Provider.of<GreatPlaces>(context, listen: false)
-                            .fetchAndSetPlaces(),
-                        builder: (ctx, snapshot) => snapshot.connectionState ==
-                                ConnectionState.waiting
-                            ? Center(
-                                //child: CircularProgressIndicator(),
-                                )
-                            : Consumer<GreatPlaces>(
-                                child: Center(
-                                  child: const Text(
-                                      'Got no places yet, start adding some!'),
-                                ),
-                                builder: (ctx, greatPlaces, ch) =>
-                                    greatPlaces.items.length <= 0
-                                        ? ch
-                                        : ListView.builder(
-                                            itemCount: greatPlaces.items.length,
-                                            itemBuilder: (ctx, i) => ListTile(
-                                              leading: CircleAvatar(
-                                                backgroundImage: FileImage(
-                                                  greatPlaces.items[i].image,
-                                                ),
-                                              ),
-                                              title: Text(
-                                                  greatPlaces.items[i].title),
-                                              subtitle: Text(greatPlaces
-                                                  .items[i].location.address),
-                                              onTap: () {
-                                                Navigator.of(context).pushNamed(
-                                                  PlaceDetailScreen.routeName,
-                                                  arguments:
-                                                      greatPlaces.items[i].id,
-                                                );
-                                              },
-                                            ),
-                                          ),
+                      var greatPlaces = placesListState.places;
+
+                      return Center(
+                        child: ListView.builder(
+                          itemCount: greatPlaces.length,
+                          itemBuilder: (ctx, i) => ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: FileImage(
+                                greatPlaces[i].image,
                               ),
+                            ),
+                            title: Text(greatPlaces[i].title),
+                            subtitle: Text(greatPlaces[i].location.address),
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                PlaceDetailScreen.routeName,
+                                arguments: greatPlaces[i].id,
+                              );
+                            },
+                          ),
+                        ),
                       );
                     } else if (placesListState is PlacesListScreenError) {
-                      // return ErrorMessage(
-                      // message: adviceState.message,
-                      //);
+                      return ErrorMessage(
+                        message: placesListState.message,
+                      );
                     }
                     return const Placeholder();
                   },
